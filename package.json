@@ -1,0 +1,30 @@
+{
+  "name": "sudoku-solver",
+  "version": "1.0.0",
+  "description": "A package that efficiently solves classic sudoku puzzles using Knuth's DLX algorithm",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cedwards036/sudoku-solver.git"
+  },
+  "keywords": [
+    "sudoku",
+    "knuth",
+    "algorithm",
+    "puzzle",
+    "solver",
+    "dlx"
+  ],
+  "author": "Christopher Edwards",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cedwards036/sudoku-solver/issues"
+  },
+  "homepage": "https://github.com/cedwards036/sudoku-solver#readme",
+  "devDependencies": {
+    "mocha": "^8.0.1"
+  }
+}
