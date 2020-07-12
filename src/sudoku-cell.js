@@ -37,24 +37,24 @@ SudokuCell.prototype = {
     cellConstraintColNum() {
         return (this.coords.puzzleSize ** 2) * DLX_COLUMN_GROUP_ORDER.CELL_CONSTRAINT +
                this.coords.row * this.coords.puzzleSize + 
-               this.coords.column;
+               this.coords.column + 1;
     },
 
     rowConstraintColNum() {
         return (this.coords.puzzleSize ** 2) * DLX_COLUMN_GROUP_ORDER.ROW_CONSTRAINT +
                this.coords.row * this.coords.puzzleSize + 
-               this.value - 1;
+               this.value;
     },
 
     colConstraintColNum() {
         return (this.coords.puzzleSize ** 2) * DLX_COLUMN_GROUP_ORDER.COL_CONSTRAINT +
                this.coords.column * this.coords.puzzleSize + 
-               this.value - 1;
+               this.value;
     },
 
     blockConstraintColNum() {
         return (this.coords.puzzleSize ** 2) * DLX_COLUMN_GROUP_ORDER.BLOCK_CONSTRAINT +
                this.coords.block * this.coords.puzzleSize + 
-               this.value - 1;
+               this.value;
     }
 }

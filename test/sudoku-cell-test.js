@@ -33,52 +33,52 @@ describe('SudokuCell', () => {
     describe('cellConstraintColNum', () => {
         it('returns the DLX matrix column number corresponding to the "one number in cell" constraint', () => {
             const firstRowCell = SudokuCell({coords: SudokuCoordinates({row: 0, column: 0}), value: 1});
-            assert.deepStrictEqual(firstRowCell.cellConstraintColNum(), 0);
+            assert.deepStrictEqual(firstRowCell.cellConstraintColNum(), 1);
 
             const middleRowCell = SudokuCell({coords: SudokuCoordinates({row: 2, column: 3}), value: 5});
-            assert.deepStrictEqual(middleRowCell.cellConstraintColNum(), 9*2+4-1);
+            assert.deepStrictEqual(middleRowCell.cellConstraintColNum(), 9*2+4);
 
             const lastRowCell = SudokuCell({coords: SudokuCoordinates({row: 8, column: 8}), value: 9});
-            assert.deepStrictEqual(lastRowCell.cellConstraintColNum(), 9*9-1);
+            assert.deepStrictEqual(lastRowCell.cellConstraintColNum(), 9*9);
         });
     });
 
     describe('rowConstraintColNum', () => {
         it('returns the DLX matrix column number corresponding to the row constraint', () => {
             const firstRowCell = SudokuCell({coords: SudokuCoordinates({row: 0, column: 0}), value: 1});
-            assert.deepStrictEqual(firstRowCell.rowConstraintColNum(), 9*9+0);
+            assert.deepStrictEqual(firstRowCell.rowConstraintColNum(), 9*9+1);
 
             const middleRowCell = SudokuCell({coords: SudokuCoordinates({row: 2, column: 3}), value: 5});
-            assert.deepStrictEqual(middleRowCell.rowConstraintColNum(), 9*9+9*2+5-1);
+            assert.deepStrictEqual(middleRowCell.rowConstraintColNum(), 9*9+9*2+5);
 
             const lastRowCell = SudokuCell({coords: SudokuCoordinates({row: 8, column: 8}), value: 9});
-            assert.deepStrictEqual(lastRowCell.rowConstraintColNum(), 9*9+9*9-1);
+            assert.deepStrictEqual(lastRowCell.rowConstraintColNum(), 9*9+9*9);
         });
     });
 
     describe('colConstraintColNum', () => {
         it('returns the DLX matrix column number corresponding to the column constraint', () => {
             const firstRowCell = SudokuCell({coords: SudokuCoordinates({row: 0, column: 0}), value: 1});
-            assert.deepStrictEqual(firstRowCell.colConstraintColNum(), 9*9*2+0);
+            assert.deepStrictEqual(firstRowCell.colConstraintColNum(), 9*9*2+1);
 
             const middleRowCell = SudokuCell({coords: SudokuCoordinates({row: 2, column: 3}), value: 5});
-            assert.deepStrictEqual(middleRowCell.colConstraintColNum(), 9*9*2+9*3+5-1);
+            assert.deepStrictEqual(middleRowCell.colConstraintColNum(), 9*9*2+9*3+5);
 
             const lastRowCell = SudokuCell({coords: SudokuCoordinates({row: 8, column: 8}), value: 9});
-            assert.deepStrictEqual(lastRowCell.colConstraintColNum(), 9*9*2+9*9-1);
+            assert.deepStrictEqual(lastRowCell.colConstraintColNum(), 9*9*2+9*9);
         });
     });
 
     describe('blockConstraintColNum', () => {
         it('returns the DLX matrix column number corresponding to the block constraint', () => {
             const firstRowCell = SudokuCell({coords: SudokuCoordinates({row: 0, column: 0}), value: 1});
-            assert.deepStrictEqual(firstRowCell.blockConstraintColNum(), 9*9*3+0);
+            assert.deepStrictEqual(firstRowCell.blockConstraintColNum(), 9*9*3+1);
 
             const middleRowCell = SudokuCell({coords: SudokuCoordinates({row: 2, column: 3}), value: 5});
-            assert.deepStrictEqual(middleRowCell.blockConstraintColNum(), 9*9*3+9*1+5-1);
+            assert.deepStrictEqual(middleRowCell.blockConstraintColNum(), 9*9*3+9*1+5);
 
             const lastRowCell = SudokuCell({coords: SudokuCoordinates({row: 8, column: 8}), value: 9});
-            assert.deepStrictEqual(lastRowCell.blockConstraintColNum(), 9*9*3+9*9-1);
+            assert.deepStrictEqual(lastRowCell.blockConstraintColNum(), 9*9*3+9*9);
         });
     });
 });
