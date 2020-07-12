@@ -4,17 +4,19 @@ import {getViableCandidatesForCell} from '../src/sudoku-dlx-parser';
 import SudokuPuzzle from '../src/sudoku-puzzle';
 
 describe('getViableCandidatesForCell', () => {
-    it('indicates that no candidates are viable for an already-filled cell', () => {
-        const sudoku = SudokuPuzzle.createEmpty();
-        sudoku[0][0] = 1;
-        const coords = SudokuCoordinates({row: 0, column: 0});
-        assert.deepStrictEqual(getViableCandidatesForCell(coords, sudoku), new Array(9).fill(false));
-    });
-
     it('indicates that all candidates are viable for a cell with no constraining neighbors', () => {
         const sudoku = SudokuPuzzle.createEmpty();
         const coords = SudokuCoordinates({row: 0, column: 0});
         assert.deepStrictEqual(getViableCandidatesForCell(coords, sudoku), new Array(9).fill(true));
+    });
+
+    it('eliminates all candidates except the cell value for a filled-in cell', () => {
+        const sudoku = SudokuPuzzle.createEmpty();
+        sudoku[0][0] = 1;
+        const expected = new Array(9).fill(false);
+        expected[1 - 1] = true;
+        const coords = SudokuCoordinates({row: 0, column: 0});
+        assert.deepStrictEqual(getViableCandidatesForCell(coords, sudoku), expected);
     });
 
     it('eliminates candidates that are constrained by the cell\'s row', () => {

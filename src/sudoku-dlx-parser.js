@@ -1,6 +1,8 @@
 export function getViableCandidatesForCell(coords, puzzle) {
     if (coords.getValueIn(puzzle) !== 0) {
-        return new Array(puzzle.size).fill(false);
+        const candidates = new Array(puzzle.size).fill(false);
+        candidates[coords.getValueIn(puzzle) - 1] = true;
+        return candidates;
     } else {  
         const candidates = new Array(puzzle.size).fill(true);
         eliminateFromCandidates(puzzle.getRow(coords.row), candidates);
