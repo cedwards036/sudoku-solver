@@ -1,6 +1,6 @@
 import assert from 'assert';
 import SudokuCoordinates from '../src/sudoku-coordinates';
-import {blankSudoku} from './helpers';
+import SudokuPuzzle from '../src/sudoku-puzzle';
 
 describe('SudokuCoordinates', () => {
     it('auto-calculates block number from row and column numbers', () => {
@@ -11,7 +11,7 @@ describe('SudokuCoordinates', () => {
 
     it('can get the value in a sudoku puzzle at its coordinates', () => {
         const coords = SudokuCoordinates({row: 2, column: 4});
-        const sudoku = blankSudoku(9);
+        const sudoku = SudokuPuzzle.createEmpty();
         sudoku[2][4] = 6;
         assert.equal(coords.getValueIn(sudoku), 6);
     });

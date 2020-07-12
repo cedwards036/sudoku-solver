@@ -14,47 +14,47 @@ export default function SudokuCell({coords, value}) {
     return cell;
 }
 
-SudokuCell.fromMatrixRowNum = (rowNum, gameDimension = 9) => {
-    const row = Math.floor(rowNum / (gameDimension ** 2));
-    const col = Math.floor((rowNum - (row * (gameDimension ** 2))) / gameDimension);
+SudokuCell.fromMatrixRowNum = (rowNum, puzzleSize = 9) => {
+    const row = Math.floor(rowNum / (puzzleSize ** 2));
+    const col = Math.floor((rowNum - (row * (puzzleSize ** 2))) / puzzleSize);
     return SudokuCell({
         coords: SudokuCoordinates({
             row: row, 
             column: col, 
-            gameDimension: gameDimension
+            puzzleSize: puzzleSize
         }),
-        value: (rowNum % gameDimension) + 1
+        value: (rowNum % puzzleSize) + 1
     });
 }
 
 SudokuCell.prototype = {
     matrixRowNum() {
-        return this.coords.row * (this.coords.gameDimension ** 2) + 
-               this.coords.column * this.coords.gameDimension + 
+        return this.coords.row * (this.coords.puzzleSize ** 2) + 
+               this.coords.column * this.coords.puzzleSize + 
                this.value - 1
     },
 
     cellConstraintColNum() {
-        return (this.coords.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.CELL_CONSTRAINT +
-               this.coords.row * this.coords.gameDimension + 
+        return (this.coords.puzzleSize ** 2) * DLX_COLUMN_GROUP_ORDER.CELL_CONSTRAINT +
+               this.coords.row * this.coords.puzzleSize + 
                this.coords.column;
     },
 
     rowConstraintColNum() {
-        return (this.coords.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.ROW_CONSTRAINT +
-               this.coords.row * this.coords.gameDimension + 
+        return (this.coords.puzzleSize ** 2) * DLX_COLUMN_GROUP_ORDER.ROW_CONSTRAINT +
+               this.coords.row * this.coords.puzzleSize + 
                this.value - 1;
     },
 
     colConstraintColNum() {
-        return (this.coords.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.COL_CONSTRAINT +
-               this.coords.column * this.coords.gameDimension + 
+        return (this.coords.puzzleSize ** 2) * DLX_COLUMN_GROUP_ORDER.COL_CONSTRAINT +
+               this.coords.column * this.coords.puzzleSize + 
                this.value - 1;
     },
 
     blockConstraintColNum() {
-        return (this.coords.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.BLOCK_CONSTRAINT +
-               this.coords.block * this.coords.gameDimension + 
+        return (this.coords.puzzleSize ** 2) * DLX_COLUMN_GROUP_ORDER.BLOCK_CONSTRAINT +
+               this.coords.block * this.coords.puzzleSize + 
                this.value - 1;
     }
 }

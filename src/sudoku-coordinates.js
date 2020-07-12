@@ -1,16 +1,16 @@
-export default function SudokuCoordinates({row, column, gameDimension = 9}) {
+export default function SudokuCoordinates({row, column, puzzleSize = 9}) {
     const coords = Object.create(SudokuCoordinates.prototype);
     coords.row = row;
     coords.column = column;
-    coords.block = calculateBlockFromRowAndCol(row, column, gameDimension);
-    coords.gameDimension = gameDimension;
+    coords.block = calculateBlockFromRowAndCol(row, column, puzzleSize);
+    coords.puzzleSize = puzzleSize;
     return coords;
 }
 
-function calculateBlockFromRowAndCol(row, column, gameDimension) {
-    const blockWidth = Math.sqrt(gameDimension);
-    return Math.floor(row / blockWidth) * blockWidth + 
-    Math.floor(column / blockWidth);
+function calculateBlockFromRowAndCol(row, column, puzzleSize) {
+    const blockSize = Math.sqrt(puzzleSize);
+    return Math.floor(row / blockSize) * blockSize + 
+    Math.floor(column / blockSize);
 }
 
 SudokuCoordinates.prototype = {
