@@ -1,6 +1,7 @@
 import SudokuCoordinates from './sudoku-coordinates';
 import SudokuCell from './sudoku-cell';
 import Node from './dlx-node';
+import {range} from './util';
 
 export function createDLXRowsFromPuzzle(puzzle) {
     const rows = [];
@@ -25,27 +26,17 @@ export function getViableCandidatesForCell(coords, puzzle) {
     if (coords.getValueIn(puzzle) !== 0) {
         return [coords.getValueIn(puzzle)];
     } else {  
-        const candidates = new Array(puzzle.size).fill(true);
+        const candidates = range(puzzle.size).map(x => x + 1);
         eliminateFromCandidates(puzzle.getRow(coords.row), candidates);
         eliminateFromCandidates(puzzle.getCol(coords.column), candidates);
         eliminateFromCandidates(puzzle.getBlock(coords.block), candidates);
-        return convertCandidateBoolsToCandidateNumbers(candidates);
+        return candidates.filter(x => x !== 0);
     }
 }
 
 function eliminateFromCandidates(neighborGroup, candidates) {
     neighborGroup.filter(cellValue => cellValue !== 0)
-                 .forEach(cellValue => candidates[cellValue - 1] = false);
-}
-
-function convertCandidateBoolsToCandidateNumbers(candidates) {
-    return candidates.map((isCandidate, index) => {
-        if (isCandidate) {
-            return index + 1;
-        } else {
-            return 0;
-        }
-    }).filter(value => value !== 0);
+                 .forEach(cellValue => candidates[cellValue - 1] = 0);
 }
 
 export function createNodeRowFromCell(sudokuCell) {

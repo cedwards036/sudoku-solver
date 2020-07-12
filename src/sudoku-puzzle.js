@@ -1,3 +1,5 @@
+import {range} from './util';
+
 export default function SudokuPuzzle(puzzleGrid) {
     const puzzle = Object.create(SudokuPuzzle.prototype);
     puzzleGrid.forEach((row, index) => puzzle[index] = row);
@@ -35,8 +37,4 @@ SudokuPuzzle.prototype = {
         }
         return block;
     }
-}
-
-function range(n) {
-    return [...Array(n).keys()];
 }
