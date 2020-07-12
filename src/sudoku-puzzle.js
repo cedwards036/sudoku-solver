@@ -16,6 +16,10 @@ SudokuPuzzle.prototype = {
         return this[rowIndex];
     },
 
+    getRows() {
+        return range(this.size).map(i => this[i]);
+    },
+
     getCol(colIndex) {
         return range(this.size).map(row => this[row][colIndex]);
     },
