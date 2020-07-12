@@ -1,3 +1,5 @@
+import SudokuCoordinates from "./sudoku-coordinates";
+
 const DLX_COLUMN_GROUP_ORDER = {
     CELL_CONSTRAINT: 0,
     ROW_CONSTRAINT: 1,
@@ -5,59 +7,54 @@ const DLX_COLUMN_GROUP_ORDER = {
     BLOCK_CONSTRAINT: 3
 }
 
-export default function SudokuCell({row, column, value, gameDimension = 9}) {
+export default function SudokuCell({coords, value}) {
     const cell = Object.create(SudokuCell.prototype);
-    cell.row = row;
-    cell.column = column;
+    cell.coords = coords;
     cell.value = value;
-    cell.block = calculateBlockFromRowAndCol(row, column, gameDimension);
-    cell.gameDimension = gameDimension;
     return cell;
 }
 
 SudokuCell.fromMatrixRowNum = (rowNum, gameDimension = 9) => {
     const row = Math.floor(rowNum / (gameDimension ** 2));
+    const col = Math.floor((rowNum - (row * (gameDimension ** 2))) / gameDimension);
     return SudokuCell({
-        row: row, 
-        column: Math.floor((rowNum - (row * (gameDimension ** 2))) / gameDimension), 
+        coords: SudokuCoordinates({
+            row: row, 
+            column: col, 
+            gameDimension: gameDimension
+        }),
         value: (rowNum % gameDimension) + 1
     });
 }
 
 SudokuCell.prototype = {
     matrixRowNum() {
-        return this.row * (this.gameDimension ** 2) + 
-               this.column * this.gameDimension + 
+        return this.coords.row * (this.coords.gameDimension ** 2) + 
+               this.coords.column * this.coords.gameDimension + 
                this.value - 1
     },
 
     cellConstraintColNum() {
-        return (this.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.CELL_CONSTRAINT +
-               this.row * this.gameDimension + 
-               this.column;
+        return (this.coords.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.CELL_CONSTRAINT +
+               this.coords.row * this.coords.gameDimension + 
+               this.coords.column;
     },
 
     rowConstraintColNum() {
-        return (this.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.ROW_CONSTRAINT +
-               this.row * this.gameDimension + 
+        return (this.coords.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.ROW_CONSTRAINT +
+               this.coords.row * this.coords.gameDimension + 
                this.value - 1;
     },
 
     colConstraintColNum() {
-        return (this.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.COL_CONSTRAINT +
-               this.column * this.gameDimension + 
+        return (this.coords.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.COL_CONSTRAINT +
+               this.coords.column * this.coords.gameDimension + 
                this.value - 1;
     },
 
     blockConstraintColNum() {
-        return (this.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.BLOCK_CONSTRAINT +
-               this.block * this.gameDimension + 
+        return (this.coords.gameDimension ** 2) * DLX_COLUMN_GROUP_ORDER.BLOCK_CONSTRAINT +
+               this.coords.block * this.coords.gameDimension + 
                this.value - 1;
     }
-}
-
-function calculateBlockFromRowAndCol(row, column, gameDimension) {
-    const blockWidth = Math.sqrt(gameDimension);
-    return Math.floor(row / blockWidth) * blockWidth + 
-    Math.floor(column / blockWidth);
 }
