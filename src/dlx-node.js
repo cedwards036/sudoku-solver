@@ -21,5 +21,29 @@ Node.prototype = {
         this.up.down = this;
         this.down.up = this;
         this.column.size += 1;
+    },
+
+    traverseRight(func) { 
+        this.traverse('right', func);
+    },
+
+    traverseLeft(func) {
+        this.traverse('left', func);
+    },
+
+    traverseUp(func) {
+        this.traverse('up', func);
+    }, 
+
+    traverseDown(func) {
+        this.traverse('down', func);
+    }, 
+
+    traverse(direction, func) {
+        let node = this[direction];
+        while (node !== this) {
+            func(node);
+            node = node[direction];
+        }
     }
 }
