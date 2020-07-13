@@ -11,5 +11,15 @@ export default function Node({columnIndex, sudokuCell}) {
 }
 
 Node.prototype = {
+    cover() {
+        this.up.down = this.down;
+        this.down.up = this.up;
+        this.column.size -= 1;
+    },
 
+    uncover() {
+        this.up.down = this;
+        this.down.up = this;
+        this.column.size += 1;
+    }
 }
