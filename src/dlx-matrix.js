@@ -25,6 +25,7 @@ function addColumns(headColumn, numberOfColumns) {
     let column = headColumn;
     for (let i = 1; i < numberOfColumns; i++) {
         column.right = Column({index: i});
+        column.right.left = column;
         column = column.right;
     }
     column.right = headColumn;

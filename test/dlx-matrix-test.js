@@ -8,6 +8,7 @@ describe('DLXMatrix', () => {
         let column = matrix.head;
         for (let i = 0; i < 3; i++) {
             assert.equal(column.index, i);
+            assert.equal(column.right.left, column)
             column = column.right;
         }
         assert.equal(column.index, 0);
