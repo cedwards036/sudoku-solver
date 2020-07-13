@@ -5,10 +5,10 @@ import Node from '../src/dlx-node';
 describe('DLX Column', () => {
     it('initializes with all of its pointers pointing at itself', () => {
         const column = Column({index: 0});
-        assert.equal(column.left === column, true);
-        assert.equal(column.right === column, true);
-        assert.equal(column.up === column, true);
-        assert.equal(column.down === column, true);
+        assert.equal(column.left, column);
+        assert.equal(column.right, column);
+        assert.equal(column.up, column);
+        assert.equal(column.down, column);
     });
 
     describe('addNode', () => {
@@ -24,23 +24,21 @@ describe('DLX Column', () => {
             const column = Column({index: 0});
             const node1 = Node(0);
             column.addNode(node1);
-            //use assert.equal(x === y, true) instead of assert.equal(x, y) to 
-            //check for *object identity* equality
-            assert.equal(column.up === node1, true);
-            assert.equal(column.down === node1, true);
-            assert.equal(node1.up === column, true);
-            assert.equal(node1.down === column, true);
-            assert.equal(node1.column === column, true);
+            assert.equal(column.up, node1);
+            assert.equal(column.down, node1);
+            assert.equal(node1.up, column);
+            assert.equal(node1.down, column);
+            assert.equal(node1.column, column);
             
             const node2 = Node(0);
             column.addNode(node2);
-            assert.equal(column.up === node2, true);
-            assert.equal(column.down.down === node2, true);
-            assert.equal(node1.up === column, true);
-            assert.equal(node1.down === node2, true);
-            assert.equal(node2.up === node1, true);
-            assert.equal(node2.down === column, true);
-            assert.equal(node2.column === column, true);
+            assert.equal(column.up, node2);
+            assert.equal(column.down.down, node2);
+            assert.equal(node1.up, column);
+            assert.equal(node1.down, node2);
+            assert.equal(node2.up, node1);
+            assert.equal(node2.down, column);
+            assert.equal(node2.column, column);
         });
     });
 });
