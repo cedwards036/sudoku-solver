@@ -28,6 +28,36 @@ DLXMatrix.prototype = {
             }
         });
         return smallestColumn;
+    },
+
+    solve() {
+        const solutions = [];
+        this.search(solutions, []);
+        return solutions.map(solution => solution.map(node => node.sudokuCell));
+    },
+
+    search(solutions, currentSolution) {
+        if (solutions.length < 2) {
+            if (this.head.right === this.head) {
+                solutions.push(currentSolution.slice());
+            } else {
+                const column = this.getSmallestColumn();
+                column.cover();
+                column.traverseDown(node => {
+                    currentSolution.push(node);
+                    node.traverseRight(siblingNode => {
+                        siblingNode.column.cover();
+                    });
+                    this.search(solutions, currentSolution);
+    
+                    node = currentSolution.pop();
+                    node.traverseLeft(siblingNode => {
+                        siblingNode.column.uncover();
+                    });
+                });
+                column.uncover();
+            }
+        } 
     }
 }
 
