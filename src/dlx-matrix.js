@@ -49,7 +49,6 @@ DLXMatrix.prototype = {
                         siblingNode.column.cover();
                     });
                     this.search(solutions, currentSolution);
-    
                     node = currentSolution.pop();
                     node.traverseLeft(siblingNode => {
                         siblingNode.column.uncover();
