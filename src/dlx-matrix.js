@@ -10,14 +10,12 @@ export default function DLXMatrix(numberOfColumns) {
 DLXMatrix.prototype = {
     addRow(row) {
         let node = row[0];
-        let column = this.head;
-        for (let i = 0; i < row.length; i++) {
-            while (column.index !== node.columnIndex) {
-                column = column.right;
+        this.head.traverseRight((column) => {
+            if (column.index === node.columnIndex) {
+                column.addNode(node);
+                node = node.right;
             }
-            column.addNode(node);
-            node = node.right;
-        }
+        });
     }
 }
 
