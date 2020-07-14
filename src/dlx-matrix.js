@@ -16,6 +16,18 @@ DLXMatrix.prototype = {
                 node = node.right;
             }
         });
+    },
+
+    getSmallestColumn() {
+        let smallestSize = Infinity;
+        let smallestColumn = this.head;
+        this.head.traverseRight(column => {
+            if (column.size < smallestSize) {
+                smallestSize = column.size;
+                smallestColumn = column;
+            }
+        });
+        return smallestColumn;
     }
 }
 

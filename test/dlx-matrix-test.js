@@ -26,4 +26,16 @@ describe('DLXMatrix', () => {
             assert.equal(matrix.head.right.right.right.right.down === node2, true);
         });
     });
+
+    describe('getSmallestColumn', () => {
+        it('returns a reference to the column with the smallest size in the matrix', () => {
+            const matrix = DLXMatrix(3);
+            const node1 = Node({columnIndex: 1});
+            const node2 = Node({columnIndex: 3});
+            node1.right = node2;
+            const row = [node1, node2];
+            matrix.addRow(row);
+            assert.equal(matrix.getSmallestColumn(), matrix.head.right.right);
+        });
+    });
 });
