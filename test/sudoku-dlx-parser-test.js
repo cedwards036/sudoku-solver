@@ -1,6 +1,11 @@
 import assert from 'assert';
 import SudokuCoordinates from '../src/sudoku-coordinates';
-import {getViableCandidatesForCell, createNodeRowFromCell, createDLXRowsFromPuzzle} from '../src/sudoku-dlx-parser';
+import {
+    getViableCandidatesForCell, 
+    createNodeRowFromCell, 
+    createDLXRowsFromPuzzle,
+    convertDLXResultsToSudoku
+} from '../src/sudoku-dlx-parser';
 import SudokuPuzzle from '../src/sudoku-puzzle';
 import SudokuCell from '../src/sudoku-cell';
 
@@ -104,3 +109,63 @@ describe('createDLXRowsFromPuzzle', () => {
         })));
     });
 });
+
+describe('convertDLXResultsToSudoku', () => {
+    it('returns an empty array given an empty array', () => {
+        assert.deepStrictEqual(convertDLXResultsToSudoku([]), []);
+    });
+
+    it('maps each result array to a 2D sudoku grid', () => {
+        const results = [
+            [
+                SudokuCell({
+                    coords: SudokuCoordinates({row: 1, column: 0, puzzleSize: 2}), 
+                    value: 3
+                }),
+                SudokuCell({
+                    coords: SudokuCoordinates({row: 0, column: 0, puzzleSize: 2}), 
+                    value: 1
+                }),
+                SudokuCell({
+                    coords: SudokuCoordinates({row: 0, column: 1, puzzleSize: 2}), 
+                    value: 2
+                }),
+                SudokuCell({
+                    coords: SudokuCoordinates({row: 1, column: 1, puzzleSize: 2}), 
+                    value: 4
+                })
+            ],
+            [ 
+                SudokuCell({
+                    coords: SudokuCoordinates({row: 0, column: 1, puzzleSize: 2}), 
+                    value: 'b'
+                }),
+                
+                SudokuCell({
+                    coords: SudokuCoordinates({row: 1, column: 1, puzzleSize: 2}), 
+                    value: 'd'
+                }),
+                SudokuCell({
+                    coords: SudokuCoordinates({row: 1, column: 0, puzzleSize: 2}), 
+                    value: 'c'
+                }),
+                SudokuCell({
+                    coords: SudokuCoordinates({row: 0, column: 0, puzzleSize: 2}), 
+                    value: 'a'
+                }),
+            ]
+        ];
+
+        const expected = [
+            SudokuPuzzle([
+                [1, 2],
+                [3, 4]
+            ]),
+            SudokuPuzzle([
+                ['a', 'b'],
+                ['c', 'd']
+            ])
+        ];
+        assert.deepStrictEqual(convertDLXResultsToSudoku(results), expected);
+    });
+}); 

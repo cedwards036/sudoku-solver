@@ -1,5 +1,6 @@
 import SudokuCoordinates from './sudoku-coordinates';
 import SudokuCell from './sudoku-cell';
+import SudokuPuzzle from './sudoku-puzzle';
 import Node from './dlx-node';
 import {range} from './util';
 
@@ -57,5 +58,13 @@ function linkNodes(nodes) {
         curNode = curNode.right;
     }
     return nodes;
+}
+
+export function convertDLXResultsToSudoku(dlxResults) {
+    return dlxResults.map(result => {
+        const puzzle = SudokuPuzzle.createEmpty(result[0].coords.puzzleSize);
+        result.forEach(cell => puzzle[cell.coords.row][cell.coords.column] = cell.value);
+        return puzzle;
+    });
 }
 
