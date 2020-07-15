@@ -1,6 +1,6 @@
 {
   "name": "@cedwards036/sudoku-solver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A package that efficiently solves classic sudoku puzzles using Knuth's DLX algorithm",
   "main": "./lib/index.js",
   "scripts": {
@@ -26,7 +26,6 @@
     "url": "https://github.com/cedwards036/sudoku-solver/issues"
   },
   "homepage": "https://github.com/cedwards036/sudoku-solver#readme",
-  "type": "module",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
