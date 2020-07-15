@@ -1,5 +1,5 @@
-import validateSudokuInput from './src/sudoku-validation';
-import * as SudokuSolver from './src/sudoku-solver';
+import validateSudokuInput from './sudoku-validation';
+import * as SudokuSolver from './sudoku-solver';
 
 export function solveClassicSudoku(puzzle) {
     validateSudokuInput(puzzle);

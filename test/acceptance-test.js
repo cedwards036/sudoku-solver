@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {solveClassicSudoku} from '../index';
+import {solveClassicSudoku} from '../src/index';
 
 describe('solveClassicSudoku', () => {
     it('throws an error given an invalid puzzle', () => {

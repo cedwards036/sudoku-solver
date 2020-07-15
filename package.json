@@ -1,10 +1,12 @@
 {
-  "name": "sudoku-solver",
+  "name": "@cedwards036/sudoku-solver",
   "version": "1.0.0",
   "description": "A package that efficiently solves classic sudoku puzzles using Knuth's DLX algorithm",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha --require babel-core/register"
+    "test": "mocha --require babel-core/register",
+    "build": "babel ./src -d ./lib",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   "homepage": "https://github.com/cedwards036/sudoku-solver#readme",
   "type": "module",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-es2015": "^6.24.1",
     "mocha": "^8.0.1"
