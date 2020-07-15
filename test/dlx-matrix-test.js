@@ -40,31 +40,40 @@ describe('DLXMatrix', () => {
     });
 
     describe('solve', () => {
-        it('returns an empty array if there are no solutions', () => {
-            //empty matrix
-            const matrix = DLXMatrix(3);
-            assert.deepStrictEqual(matrix.solve(), []);
+        describe('when there are no solutions', () => {
+            it('because the matrix is empty', () => {
+                const matrix = DLXMatrix(0);
+                assert.deepStrictEqual(matrix.solve(), []);
+            });
 
-            //matrix with contradictory rows
-            const node1Row1 = Node({columnIndex: 1});
-            const node2Row1 = Node({columnIndex: 2});
-            node1Row1.right = node2Row1;
-            node2Row1.right = node1Row1;
-            node1Row1.left = node2Row1;
-            node2Row1.left = node1Row1;
-            const row1 = [node1Row1, node2Row1];
-        
-            const node1Row2 = Node({columnIndex: 1});
-            const node2Row2 = Node({columnIndex: 3});
-            node1Row2.right = node2Row2;
-            node2Row2.right = node1Row2;
-            node1Row2.left = node2Row2;
-            node2Row2.left = node1Row2;
-            const row2 = [node1Row2, node2Row2];
-        
-            matrix.addRow(row1);
-            matrix.addRow(row2);
-            assert.deepStrictEqual(matrix.solve(), []);
+            it('because the matrix has at least one empty column', () => {
+                const matrix = DLXMatrix(2);
+                matrix.addRow([Node({columnIndex: 1, sudokuCell: 'cell1'})])
+                assert.deepStrictEqual(matrix.solve(), []);
+            });
+
+            it('because the matrix has contradictory columns', () => {
+                const matrix = DLXMatrix(3);
+                const node1Row1 = Node({columnIndex: 1});
+                const node2Row1 = Node({columnIndex: 2});
+                node1Row1.right = node2Row1;
+                node2Row1.right = node1Row1;
+                node1Row1.left = node2Row1;
+                node2Row1.left = node1Row1;
+                const row1 = [node1Row1, node2Row1];
+            
+                const node1Row2 = Node({columnIndex: 1});
+                const node2Row2 = Node({columnIndex: 3});
+                node1Row2.right = node2Row2;
+                node2Row2.right = node1Row2;
+                node1Row2.left = node2Row2;
+                node2Row2.left = node1Row2;
+                const row2 = [node1Row2, node2Row2];
+            
+                matrix.addRow(row1);
+                matrix.addRow(row2);
+                assert.deepStrictEqual(matrix.solve(), []);
+            });            
         });
 
         it('returns a 2D array with one element--a solution node array--if the matrix has a unique solution', () => {

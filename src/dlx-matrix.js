@@ -38,7 +38,7 @@ DLXMatrix.prototype = {
 
     search(solutions, currentSolution) {
         if (solutions.length < 2) {
-            if (this.head.right === this.head) {
+            if (this.head.right === this.head && currentSolution.length > 0) {
                 solutions.push(currentSolution.slice());
             } else {
                 const column = this.getSmallestColumn();
