@@ -44,6 +44,32 @@ describe('solveClassicSudoku', () => {
         assert.deepStrictEqual(solveClassicSudoku(puzzle), [solution]);
     });
 
+    it('returns the given puzzle if the puzzle is already solved', () => {
+        const puzzle = [
+            [5, 9, 8, 2, 7, 1, 3, 4, 6],
+            [7, 4, 2, 6, 5, 3, 8, 9, 1],
+            [1, 3, 6, 8, 4, 9, 2, 5, 7],
+            [8, 1, 3, 5, 2, 7, 9, 6, 4],
+            [4, 2, 7, 9, 6, 8, 1, 3, 5],
+            [6, 5, 9, 3, 1, 4, 7, 2, 8],
+            [2, 8, 5, 7, 9, 6, 4, 1, 3],
+            [9, 7, 1, 4, 3, 5, 6, 8, 2],
+            [3, 6, 4, 1, 8, 2, 5, 7, 9],
+        ];
+        const solution = SudokuPuzzle([
+            [5, 9, 8, 2, 7, 1, 3, 4, 6],
+            [7, 4, 2, 6, 5, 3, 8, 9, 1],
+            [1, 3, 6, 8, 4, 9, 2, 5, 7],
+            [8, 1, 3, 5, 2, 7, 9, 6, 4],
+            [4, 2, 7, 9, 6, 8, 1, 3, 5],
+            [6, 5, 9, 3, 1, 4, 7, 2, 8],
+            [2, 8, 5, 7, 9, 6, 4, 1, 3],
+            [9, 7, 1, 4, 3, 5, 6, 8, 2],
+            [3, 6, 4, 1, 8, 2, 5, 7, 9],
+        ]);
+        assert.deepStrictEqual(solveClassicSudoku(puzzle), [solution]);
+    });
+
     it('returns no more than two solutions for puzzles with multiple solutions', () => {
         const puzzle = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0],
